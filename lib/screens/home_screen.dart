@@ -1,8 +1,8 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:todo_application/models/todo_model.dart';
+import 'package:todo_application/utils/date_formatter.dart';
+import '/models/todo_model.dart';
+import '/widgets/general_bottom_sheet.dart';
 import '/constants/constant.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -21,6 +21,21 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Firebase Application"),
+        actions: [
+          IconButton(
+            onPressed: () async {
+              final todoName =
+                  await GeneralBottomSheet().customBottomSheet(context);
+              if (todoName != null) {
+                final todoModel = TodoModel(todoName);
+                collection.add(todoModel.toMap());
+              }
+            },
+            icon: const Icon(
+              Icons.add_outlined,
+            ),
+          )
+        ],
       ),
       body: Padding(
           padding: basePadding,
@@ -37,21 +52,43 @@ class HomeScreen extends StatelessWidget {
                 child: ListView.builder(
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (context, index) {
-                    final data = snapshot.data!.docs[index].data()! as Map;
+                    final queryDocSnapshot = snapshot.data!.docs[index];
+                    final data = queryDocSnapshot.data()! as Map;
                     final todo = TodoModel.fromJson(data);
-                    return ListTile(
-                      title: Text(todo.title),
-                      subtitle: Text(
-                        todo.date.toString(),
+                    return Dismissible(
+                      key: ValueKey(queryDocSnapshot.id),
+                      onDismissed: (_) {
+                        queryDocSnapshot.reference.delete();
+                      },
+                      background: Container(
+                        color: Colors.red,
+                        child: const Icon(
+                          Icons.delete_outlined,
+                          color: Colors.white,
+                          size: 30,
+                        ),
                       ),
-                      trailing: Icon(
-                        todo.isCompleted
-                            ? Icons.done_outlined
-                            : Icons.pending_outlined,
+                      direction: DismissDirection.endToStart,
+                      child: ListTile(
+                        onTap: () {
+                          queryDocSnapshot.reference.update(
+                            todo.updateStatus(),
+                          );
+                        },
+                        title: Text(todo.title),
+                        subtitle: Text(
+                          DateFormatter.formatDateTime(todo.date),
+                        ),
+                        trailing: Icon(
+                          todo.isCompleted
+                              ? Icons.done_outlined
+                              : Icons.pending_outlined,
+                        ),
                       ),
                     );
                   },
                   shrinkWrap: true,
+                  primary: false,
                 ),
               );
             },
