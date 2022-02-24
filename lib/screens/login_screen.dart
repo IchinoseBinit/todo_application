@@ -5,6 +5,8 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:todo_application/constants/constant.dart';
 import 'package:todo_application/screens/home_screen.dart';
 import 'package:todo_application/screens/register_screen.dart';
+import 'package:todo_application/widgets/general_alert_dialog.dart';
+// import 'package:todo_application/widgets/general_alert_dialog.dart';
 import 'package:todo_application/widgets/general_text_field.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -64,7 +66,7 @@ class LoginScreen extends StatelessWidget {
                     controller: passwordController,
                     isObscure: true,
                     textInputType: TextInputType.text,
-                    textInputAction: TextInputAction.next,
+                    textInputAction: TextInputAction.done,
                     validate: (value) {
                       if (value!.isEmpty) {
                         return "Please enter your password";
@@ -80,22 +82,43 @@ class LoginScreen extends StatelessWidget {
                       if (formKey.currentState!.validate()) {
                         final email = emailController.text;
                         final password = passwordController.text;
+                        try {
+                          GeneralAlertDialog().customLoadingDialog(context);
+                          // continue
+                          final user = await FirebaseAuth.instance
+                              .signInWithEmailAndPassword(
+                            email: email,
+                            password: password,
+                          );
+                          // if accurate then the code below works
+                          Navigator.of(context).pop();
 
-                        final user = await FirebaseAuth.instance
-                            .signInWithEmailAndPassword(
-                          email: email,
-                          password: password,
-                        );
-
-                        // print(user.user!.email);
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (_) => const HomeScreen(),
-                          ),
-                        );
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (_) => const HomeScreen(),
+                            ),
+                          );
+                        } on FirebaseAuthException catch (e) {
+                          String message = "";
+                          if (e.code == "user-not-found") {
+                            message = "The user does not exist";
+                          } else if (e.code == "too-many-requests") {
+                            message =
+                                "Your account is locked, please try again later.";
+                          } else if (e.code == "wrong-password") {
+                            message = "Incorrect password";
+                          }
+                          Navigator.of(context).pop();
+                          GeneralAlertDialog()
+                              .customAlertDialog(context, message);
+                        } catch (ex) {
+                          Navigator.of(context).pop();
+                          GeneralAlertDialog()
+                              .customAlertDialog(context, ex.toString());
+                        }
                       }
                     },
-                    child: Text("Login"),
+                    child: const Text("Login"),
                   ),
                   const SizedBox(
                     height: 20,

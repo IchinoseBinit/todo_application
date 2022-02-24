@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_application/constants/constant.dart';
+import 'package:todo_application/widgets/general_alert_dialog.dart';
 import 'package:todo_application/widgets/general_text_field.dart';
 
 class RegisterScreen extends StatelessWidget {
@@ -73,13 +74,37 @@ class RegisterScreen extends StatelessWidget {
                       final passwordForUser = passwordController.text;
 
                       // print(email + " " + password);
-
-                      final user = await FirebaseAuth.instance
-                          .createUserWithEmailAndPassword(
-                        email: emailAddress,
-                        password: passwordForUser,
-                      );
-                      Navigator.of(context).pop();
+                      try {
+                        GeneralAlertDialog().customLoadingDialog(
+                          context,
+                        );
+                        final user = await FirebaseAuth.instance
+                            .createUserWithEmailAndPassword(
+                          email: emailAddress,
+                          password: passwordForUser,
+                        );
+                        // if accurate the code below works
+                        Navigator.of(context).pop(); //removes loading indicator
+                        Navigator.of(context).pop(); //removes register screen
+                        // we reach to login screen
+                      } on FirebaseAuthException catch (e) {
+                        String message = "";
+                        if (e.code == "email-already-in-use") {
+                          message = "The email is already used";
+                        } else if (e.code == "weak-password") {
+                          message =
+                              "Your password is too weak. try adding alphanumeric characters";
+                        } else if (e.code == "invalid-email") {
+                          message = "The email address is invalid";
+                        }
+                        Navigator.of(context).pop();
+                        GeneralAlertDialog()
+                            .customAlertDialog(context, message);
+                      } catch (ex) {
+                        Navigator.of(context).pop();
+                        GeneralAlertDialog()
+                            .customAlertDialog(context, ex.toString());
+                      }
                     }
                   },
                   child: const Text("Register"),
