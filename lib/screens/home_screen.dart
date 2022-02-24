@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:todo_application/utils/date_formatter.dart';
+import '/utils/date_formatter.dart';
 import '/models/todo_model.dart';
 import '/widgets/general_bottom_sheet.dart';
 import '/constants/constant.dart';
@@ -13,11 +13,7 @@ class HomeScreen extends StatelessWidget {
     final fireStore = FirebaseFirestore.instance;
 
     final collection = fireStore.collection(TodoConstants.todo);
-    // final stream =
-    //     fireStore.collection(TodoConstants.todo).doc('RiN3YaS1BXAAPevEByqV');
-    // stream.get().then((value) => log(
-    //       value.data().toString(),
-    //     ));
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Firebase Application"),

@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:todo_application/constants/constant.dart';
-import 'package:todo_application/widgets/general_alert_dialog.dart';
-import 'package:todo_application/widgets/general_text_field.dart';
+import '/constants/constant.dart';
+import '/widgets/general_alert_dialog.dart';
+import '/widgets/general_text_field.dart';
 
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({Key? key}) : super(key: key);
@@ -78,7 +78,7 @@ class RegisterScreen extends StatelessWidget {
                         GeneralAlertDialog().customLoadingDialog(
                           context,
                         );
-                        final user = await FirebaseAuth.instance
+                        await FirebaseAuth.instance
                             .createUserWithEmailAndPassword(
                           email: emailAddress,
                           password: passwordForUser,

@@ -2,12 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:todo_application/constants/constant.dart';
-import 'package:todo_application/screens/home_screen.dart';
-import 'package:todo_application/screens/register_screen.dart';
-import 'package:todo_application/widgets/general_alert_dialog.dart';
-// import 'package:todo_application/widgets/general_alert_dialog.dart';
-import 'package:todo_application/widgets/general_text_field.dart';
+import '/constants/constant.dart';
+import '/screens/home_screen.dart';
+import '/screens/register_screen.dart';
+import '/widgets/general_alert_dialog.dart';
+import '/widgets/general_text_field.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
