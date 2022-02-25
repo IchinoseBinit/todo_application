@@ -89,12 +89,13 @@ class LoginScreen extends StatelessWidget {
                             email: email,
                             password: password,
                           );
+                          // print(user.user!.uid);
                           // if accurate then the code below works
                           Navigator.of(context).pop();
 
                           Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
-                              builder: (_) => const HomeScreen(),
+                              builder: (_) => HomeScreen(user.user!.uid),
                             ),
                           );
                         } on FirebaseAuthException catch (e) {
@@ -142,15 +143,18 @@ class LoginScreen extends StatelessWidget {
                               accessToken: authenticatedUser.accessToken,
                             );
 
-                            await FirebaseAuth.instance
+                            final userCredential = await FirebaseAuth.instance
                                 .signInWithCredential(authProvider);
+
+                            // print(userCredential.user!.uid);
 
                             // await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password)
 
                             // navigate to home
                             Navigator.of(context)
                                 .pushReplacement(MaterialPageRoute(
-                              builder: (_) => const HomeScreen(),
+                              builder: (_) =>
+                                  HomeScreen(userCredential.user!.uid),
                             ));
                           }
                         },
@@ -168,9 +172,11 @@ class LoginScreen extends StatelessWidget {
                           final user =
                               await FirebaseAuth.instance.signInAnonymously();
 
+                          // print(user.user!.uid);
+
                           Navigator.of(context)
                               .pushReplacement(MaterialPageRoute(
-                            builder: (_) => const HomeScreen(),
+                            builder: (_) => HomeScreen(user.user!.uid),
                           ));
                         },
                         child: Text(
