@@ -59,46 +59,6 @@ class _GeneralTextFieldState extends State<GeneralTextField> {
             : null,
         hintText: "Enter your ${widget.title}",
         counter: const SizedBox.shrink(),
-        enabledBorder: const OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.blueAccent,
-          ),
-          borderRadius: BorderRadius.all(
-            Radius.circular(
-              15,
-            ),
-          ),
-        ),
-        focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.blueAccent,
-          ),
-          borderRadius: BorderRadius.all(
-            Radius.circular(
-              15,
-            ),
-          ),
-        ),
-        errorBorder: const OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.red,
-          ),
-          borderRadius: BorderRadius.all(
-            Radius.circular(
-              15,
-            ),
-          ),
-        ),
-        focusedErrorBorder: const OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.red,
-          ),
-          borderRadius: BorderRadius.all(
-            Radius.circular(
-              15,
-            ),
-          ),
-        ),
       ),
       controller: widget.controller,
       inputFormatters: widget.inputFormatter,

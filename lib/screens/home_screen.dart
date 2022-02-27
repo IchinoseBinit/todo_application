@@ -16,6 +16,9 @@ class HomeScreen extends StatelessWidget {
 
     final collection = fireStore.collection(TodoConstants.todo);
 
+    print(Theme.of(context).textTheme.subtitle1!.fontFamily);
+    print(Theme.of(context).textTheme.caption!.fontFamily);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Firebase Application"),
@@ -91,6 +94,35 @@ class HomeScreen extends StatelessWidget {
               );
             },
           )),
+      bottomNavigationBar: CustomSwitch(),
+    );
+  }
+}
+
+class CustomSwitch extends StatefulWidget {
+  const CustomSwitch({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<CustomSwitch> createState() => _CustomSwitchState();
+}
+
+class _CustomSwitchState extends State<CustomSwitch> {
+  bool isDarkMode = false;
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(
+        "Dark Mode",
+      ),
+      trailing: Switch(
+        value: isDarkMode,
+        onChanged: (value) {
+          isDarkMode = value;
+          setState(() {});
+        },
+      ),
     );
   }
 }

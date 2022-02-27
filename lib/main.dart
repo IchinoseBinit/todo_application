@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_application/theme/theme_data.dart';
 import '/screens/home_screen.dart';
 import '/screens/login_screen.dart';
 import '/screens/register_screen.dart';
@@ -17,10 +18,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      title: 'Todo Application',
+      theme: lightTheme(context),
+      // themeMode: ,
       home: LoginScreen(),
     );
   }
