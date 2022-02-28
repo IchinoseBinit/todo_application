@@ -11,6 +11,8 @@ import '/widgets/general_text_field.dart';
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
 
+  // settingsController
+
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -32,7 +34,7 @@ class LoginScreen extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.add_to_queue_outlined,
-                    color: Theme.of(context).primaryColor,
+                    // color: Theme.of(context).primaryColor,
                     size: 100,
                   ),
                   const SizedBox(

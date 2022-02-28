@@ -8,6 +8,8 @@ import '/constants/constant.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen(this.userId, {Key? key}) : super(key: key);
 
+  // settingsController
+
   final String userId;
 
   @override
@@ -103,6 +105,8 @@ class CustomSwitch extends StatefulWidget {
   const CustomSwitch({
     Key? key,
   }) : super(key: key);
+
+  // settingsController
 
   @override
   State<CustomSwitch> createState() => _CustomSwitchState();
