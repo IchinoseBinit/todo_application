@@ -8,9 +8,9 @@ class SettingsController with ChangeNotifier {
 
   ThemeMode get themeMode => _themeMode;
 
-  loadSettings() async {
+  Future loadSettings() async {
     _themeMode = await settingsService.themeMode();
-    notifyListeners();
+    // notifyListeners();
   }
 
   updateThemeMode(bool isDarkMode) async {

@@ -32,7 +32,7 @@ class LoginScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.add_to_queue_outlined,
                     // color: Theme.of(context).primaryColor,
                     size: 100,
@@ -216,3 +216,8 @@ class LoginScreen extends StatelessWidget {
     );
   }
 }
+
+
+// main (provider)
+// login
+// register/home

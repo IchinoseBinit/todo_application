@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_application/utils/settings_controller.dart';
 import '/utils/date_formatter.dart';
 import '/models/todo_model.dart';
 import '/widgets/general_bottom_sheet.dart';
@@ -116,17 +118,37 @@ class _CustomSwitchState extends State<CustomSwitch> {
   bool isDarkMode = false;
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(
-        "Dark Mode",
-      ),
-      trailing: Switch(
-        value: isDarkMode,
-        onChanged: (value) {
-          isDarkMode = value;
-          setState(() {});
-        },
-      ),
-    );
+    // Consumer
+    // listen: true
+
+    final future = Provider.of<SettingsController>(context).loadSettings();
+    // print(themeMode == ThemeMode.dark);
+    return FutureBuilder(
+        future: future,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const SizedBox(
+              width: 50,
+              height: 50,
+              child: Center(child: CircularProgressIndicator()),
+            );
+          }
+          final isDark = Provider.of<SettingsController>(
+                context,
+              ).themeMode ==
+              ThemeMode.dark;
+          return ListTile(
+            title: const Text(
+              "Dark Mode",
+            ),
+            trailing: Switch(
+              value: isDark,
+              onChanged: (value) {
+                Provider.of<SettingsController>(context, listen: false)
+                    .updateThemeMode(value);
+              },
+            ),
+          );
+        });
   }
 }
