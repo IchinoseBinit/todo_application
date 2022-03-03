@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:todo_application/utils/size_config.dart';
 
 ThemeData lightTheme(BuildContext context) {
   return ThemeData(
     primaryColor: Colors.blue,
     scaffoldBackgroundColor: Colors.white,
     iconTheme: const IconThemeData(color: Colors.blue),
-    appBarTheme: const AppBarTheme(
+    appBarTheme: AppBarTheme(
       backgroundColor: Colors.red,
       titleTextStyle: TextStyle(
         color: Colors.white,
-        fontSize: 16,
+        fontSize: SizeConfig.width * 4,
       ),
     ),
     textTheme: const TextTheme(
@@ -33,14 +34,21 @@ ThemeData lightTheme(BuildContext context) {
         fontFamily: "Open Sans",
       ),
     ),
-    inputDecorationTheme: const InputDecorationTheme(
+    inputDecorationTheme: InputDecorationTheme(
+      contentPadding: EdgeInsets.symmetric(
+        vertical: SizeConfig.height * 2.5,
+        horizontal: SizeConfig.width * 2,
+      ),
+      hintStyle: TextStyle(
+        fontSize: SizeConfig.width * 4,
+      ),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(
           color: Colors.blueAccent,
         ),
         borderRadius: BorderRadius.all(
           Radius.circular(
-            15,
+            SizeConfig.height * 2,
           ),
         ),
       ),
@@ -50,7 +58,7 @@ ThemeData lightTheme(BuildContext context) {
         ),
         borderRadius: BorderRadius.all(
           Radius.circular(
-            15,
+            SizeConfig.height * 2,
           ),
         ),
       ),
@@ -60,7 +68,7 @@ ThemeData lightTheme(BuildContext context) {
         ),
         borderRadius: BorderRadius.all(
           Radius.circular(
-            15,
+            SizeConfig.height * 2,
           ),
         ),
       ),
@@ -70,7 +78,7 @@ ThemeData lightTheme(BuildContext context) {
         ),
         borderRadius: BorderRadius.all(
           Radius.circular(
-            15,
+            SizeConfig.height * 2,
           ),
         ),
       ),

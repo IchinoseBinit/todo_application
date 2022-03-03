@@ -8,8 +8,8 @@ class SettingsController with ChangeNotifier {
 
   ThemeMode get themeMode => _themeMode;
 
-  Future loadSettings() async {
-    _themeMode = await settingsService.themeMode();
+  loadSettings() {
+    _themeMode = settingsService.themeMode();
     // notifyListeners();
   }
 

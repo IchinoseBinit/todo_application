@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:todo_application/utils/size_config.dart';
 import '/constants/constant.dart';
 import '/screens/home_screen.dart';
 import '/screens/register_screen.dart';
@@ -21,13 +20,18 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final totalSize = MediaQuery.of(context).size;
+    final totalHeight = totalSize.height / 100;
+    final totalWidth = totalSize.width / 100;
+    print(totalHeight);
+    print(totalWidth);
     return Scaffold(
       body: SafeArea(
         child: Padding(
           padding: basePadding,
           child: SingleChildScrollView(
               child: SizedBox(
-            height: SizeConfig.height * 100,
+            height: totalHeight * 100,
             child: Form(
               key: formKey,
               child: Column(
@@ -36,17 +40,17 @@ class LoginScreen extends StatelessWidget {
                   Icon(
                     Icons.add_to_queue_outlined,
                     // color: Theme.of(context).primaryColor,
-                    size: SizeConfig.height * 12,
+                    size: totalHeight * 12,
                   ),
                   SizedBox(
-                    height: SizeConfig.height,
+                    height: totalHeight,
                   ),
                   Text(
                     "Login",
                     style: Theme.of(context).textTheme.headline5,
                   ),
                   SizedBox(
-                    height: SizeConfig.height * 2.5,
+                    height: totalHeight * 2.5,
                   ),
                   GeneralTextField(
                     title: "Email",
@@ -61,7 +65,7 @@ class LoginScreen extends StatelessWidget {
                     },
                   ),
                   SizedBox(
-                    height: SizeConfig.height,
+                    height: totalHeight,
                   ),
                   GeneralTextField(
                     title: "Password",
@@ -77,7 +81,7 @@ class LoginScreen extends StatelessWidget {
                     },
                   ),
                   SizedBox(
-                    height: SizeConfig.height * 2.5,
+                    height: totalHeight * 2.5,
                   ),
                   ElevatedButton(
                     onPressed: () async {
@@ -124,7 +128,7 @@ class LoginScreen extends StatelessWidget {
                     child: const Text("Login"),
                   ),
                   SizedBox(
-                    height: SizeConfig.height * 2.5,
+                    height: totalHeight * 2.5,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -163,10 +167,10 @@ class LoginScreen extends StatelessWidget {
                         },
                         child: CachedNetworkImage(
                           imageUrl: ImageConstants.googleImageUrl,
-                          width: SizeConfig.width * 12,
+                          width: totalWidth * 12,
                           placeholder: (_, __) => SizedBox(
-                            width: SizeConfig.width * 12,
-                            height: SizeConfig.height * 6,
+                            width: totalWidth * 12,
+                            height: totalHeight * 6,
                           ),
                         ),
                       ),
@@ -186,14 +190,14 @@ class LoginScreen extends StatelessWidget {
                           "Login as Guest",
                           style:
                               Theme.of(context).textTheme.bodyText1!.copyWith(
-                                    fontSize: SizeConfig.width * 4,
+                                    fontSize: totalWidth * 4,
                                   ),
                         ),
                       )
                     ],
                   ),
                   SizedBox(
-                    height: SizeConfig.height * 2.5,
+                    height: totalHeight * 2.5,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

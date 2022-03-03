@@ -20,9 +20,6 @@ class HomeScreen extends StatelessWidget {
 
     final collection = fireStore.collection(TodoConstants.todo);
 
-    print(Theme.of(context).textTheme.subtitle1!.fontFamily);
-    print(Theme.of(context).textTheme.caption!.fontFamily);
-
     return Scaffold(
       appBar: AppBar(
         title: const Text("Firebase Application"),
@@ -118,37 +115,21 @@ class _CustomSwitchState extends State<CustomSwitch> {
   bool isDarkMode = false;
   @override
   Widget build(BuildContext context) {
-    // Consumer
-    // listen: true
-
-    final future = Provider.of<SettingsController>(context).loadSettings();
-    // print(themeMode == ThemeMode.dark);
-    return FutureBuilder(
-        future: future,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const SizedBox(
-              width: 50,
-              height: 50,
-              child: Center(child: CircularProgressIndicator()),
-            );
-          }
-          final isDark = Provider.of<SettingsController>(
-                context,
-              ).themeMode ==
-              ThemeMode.dark;
-          return ListTile(
-            title: const Text(
-              "Dark Mode",
-            ),
-            trailing: Switch(
-              value: isDark,
-              onChanged: (value) {
-                Provider.of<SettingsController>(context, listen: false)
-                    .updateThemeMode(value);
-              },
-            ),
-          );
-        });
+    final isDark = Provider.of<SettingsController>(
+          context,
+        ).themeMode ==
+        ThemeMode.dark;
+    return ListTile(
+      title: const Text(
+        "Dark Mode",
+      ),
+      trailing: Switch(
+        value: isDark,
+        onChanged: (value) {
+          Provider.of<SettingsController>(context, listen: false)
+              .updateThemeMode(value);
+        },
+      ),
+    );
   }
 }
